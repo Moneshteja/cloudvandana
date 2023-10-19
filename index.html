@@ -4,8 +4,8 @@
 
   <select id="operator">
     <option value="+">+</option>
-    <option value="-">-</option> 
-    <option value="*">*</option>
+    <option value="-">-</option>
+    <option value="*">*</option> 
     <option value="/">/</option>
   </select>
 
@@ -15,41 +15,46 @@
 
   <p id="result"></p>
 
-  <button onclick="clear()">Clear</button>
+  <button onclick="clear()">C</button>
 
 </div>
 
 <style>
-/* calculator styling */
+
+#calculator {
+  width: 250px;
+  background: lightgray;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+input, select, button {
+  width: 50px;
+  padding: 5px;
+  margin: 5px;
+}
+
+input {
+  text-align: right;  
+}
+
+select {
+  padding: 7px;
+}
+
+button {
+  width: 60px;  
+}
+
+#result {
+  height: 30px;
+  background: white;
+  text-align: right;
+  padding-right: 5px;
+}
+
 </style>
 
 <script>
-
-function calculate() {
-
-  let num1 = document.getElementById('num1').value;
-  let num2 = document.getElementById('num2').value;
-  let operator = document.getElementById('operator').value;
-  let result;
-
-  if(operator == "+") {
-    result = parseFloat(num1) + parseFloat(num2);
-  } else if(operator == "-") {
-    result = parseFloat(num1) - parseFloat(num2);
-  } else if(operator == "*") {  
-    result = parseFloat(num1) * parseFloat(num2); 
-  } else if(operator == "/") {
-    result = parseFloat(num1) / parseFloat(num2);
-  }
-
-  document.getElementById('result').innerHTML = result;
-
-}
-
-function clear() {
-  document.getElementById('num1').value = "";
-  document.getElementById('num2').value = "";
-  document.getElementById('result').innerHTML = "";
-}
-
+// JavaScript code
 </script>
