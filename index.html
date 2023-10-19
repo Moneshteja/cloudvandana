@@ -16,7 +16,7 @@
         }
 
         form {
-            width: 500px;
+            width: 600px;
             padding: 20px;
             background-color: #ffffff;
             border-radius: 8px;
@@ -27,18 +27,13 @@
             margin-bottom: 15px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .name-field {
+        .dual-field {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .name-field .form-field {
+        .dual-field .form-field {
             width: 48%;
         }
 
@@ -68,7 +63,7 @@
 
 <body>
     <form id="surveyForm">
-        <div class="name-field">
+        <div class="dual-field">
             <div class="form-field">
                 <label for="firstName">First Name</label>
                 <input type="text" id="firstName" required>
@@ -86,33 +81,36 @@
 
         <div class="form-field">
             <label for="country">Country</label>
-            <select id="country" required size="3">
+            <select id="country" required size="5">
+                <option value="India">India</option>
                 <option value="USA">USA</option>
                 <option value="Canada">Canada</option>
                 <option value="UK">UK</option>
+                <option value="Australia">Australia</option>
                 <!-- Add other countries as needed -->
             </select>
         </div>
 
         <span>Gender</span><br>
-        <label for="male">Male</label>
-        <input type="radio" name="gender" id="male" value="Male"><br>
-        <label for="female">Female</label>
-        <input type="radio" name="gender" id="female" value="Female"><br><br>
+        <input type="radio" name="gender" id="male" value="Male">
+        <label for="male">Male</label><br>
+        <input type="radio" name="gender" id="female" value="Female">
+        <label for="female">Female</label><br><br>
 
         <div class="form-field">
             <label for="profession">Profession</label>
             <input type="text" id="profession" required>
         </div>
 
-        <div class="form-field">
-            <label for="email">Email</label>
-            <input type="email" id="email" required>
-        </div>
-
-        <div class="form-field">
-            <label for="mobileNumber">Mobile Number</label>
-            <input type="tel" id="mobileNumber" required pattern="[0-9]{10}">
+        <div class="dual-field">
+            <div class="form-field">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-field">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="tel" id="mobileNumber" required pattern="[0-9]{10}">
+            </div>
         </div>
 
         <button type="button" onclick="submitForm()">Submit</button>
