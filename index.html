@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,23 +17,18 @@
 
         .calculator {
             border: 1px solid #d1d5db;
-            padding: 20px;
             background-color: #ffffff;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 1px;  /* Minimal gap to differentiate buttons */
         }
 
         button {
             padding: 15px;
             border: none;
-            border-radius: 5px;
+            border-radius: 0;
             cursor: pointer;
             font-size: 18px;
-        }
-
-        button:hover {
-            background-color: #e5e7eb;
         }
 
         input#display {
@@ -61,6 +57,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="calculator">
         <input type="text" id="display" readonly>
@@ -99,7 +96,7 @@
                 compute();
             }
             currentOperation = operation;
-            previousInput = currentInput;
+            previousInput += currentInput + " " + operation + " ";
             currentInput = "";
             updateDisplay();
         }
@@ -113,43 +110,23 @@
 
         function compute() {
             let result;
-            const prev = parseFloat(previousInput);
-            const curr = parseFloat(currentInput);
-            if (isNaN(prev) || isNaN(curr)) return;
-            switch (currentOperation) {
-                case '+':
-                    result = prev + curr;
-                    break;
-                case '-':
-                    result = prev - curr;
-                    break;
-                case '*':
-                    result = prev * curr;
-                    break;
-                case '/':
-                    if (curr === 0) {
-                        alert("Cannot divide by zero");
-                        clearDisplay();
-                        return;
-                    }
-                    result = prev / curr;
-                    break;
-                default:
-                    return;
+            let fullExpression = previousInput + currentInput;
+            try {
+                result = eval(fullExpression);
+                currentInput = result.toString();
+                previousInput = "";
+                currentOperation = null;
+            } catch (error) {
+                alert("Invalid Calculation");
+                clearDisplay();
             }
-            currentInput = result.toString();
-            currentOperation = null;
-            previousInput = "";
             updateDisplay();
         }
 
         function updateDisplay() {
-            if (currentOperation) {
-                document.getElementById('display').value = `${previousInput} ${currentOperation} ${currentInput}`;
-            } else {
-                document.getElementById('display').value = currentInput;
-            }
+            document.getElementById('display').value = previousInput + currentInput;
         }
     </script>
 </body>
+
 </html>
