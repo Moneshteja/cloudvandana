@@ -1,0 +1,47 @@
+<div id="calculator">
+
+  <input type="number" id="num1">
+
+  <select id="operator">
+    <option value="+">+</option> 
+    <option value="-">-</option>
+    <option value="*">*</option>
+    <option value="/">/</option>
+  </select>
+
+  <input type="number" id="num2">
+
+  <button onclick="calculate()">=</button>
+
+  <p id="result"></p>
+
+</div>
+
+<style>
+  /* calculator styling */
+</style>
+
+<script>
+
+  function calculate() {
+
+    let num1 = document.getElementById('num1').value;
+    let num2 = document.getElementById('num2').value;
+    let operator = document.getElementById('operator').value;
+    let result;
+
+    if(operator == "+") {
+      result = parseFloat(num1) + parseFloat(num2);
+    } else if(operator == "-") {
+      result = parseFloat(num1) - parseFloat(num2); 
+    } else if(operator == "*") {
+      result = parseFloat(num1) * parseFloat(num2);
+    } else if(operator == "/") {  
+      result = parseFloat(num1) / parseFloat(num2);
+    }
+
+    document.getElementById('result').innerHTML = result;
+
+  }
+
+</script>
