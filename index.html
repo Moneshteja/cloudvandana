@@ -1,107 +1,131 @@
-<div id="calculator">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3f4f6;
+        }
 
-  <input type="number" id="num1">
+        .calculator {
+            border: 1px solid #d1d5db;
+            padding: 20px;
+            background-color: #ffffff;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
 
-  <select id="operator">
-    <option value="+">+</option>
-    <option value="-">-</option>
-    <option value="*">*</option> 
-    <option value="/">/</option>
-  </select>
+        button {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
 
-  <input type="number" id="num2">
+        button:hover {
+            background-color: #e5e7eb;
+        }
 
-  <button onclick="calculate()">=</button>
+        button.ac {
+            grid-column: 1 / span 4;
+            background-color: #f87171;
+            color: white;
+        }
 
-  <p id="result"></p>
+        input#display {
+            grid-column: 1 / span 4;
+            padding: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <button class="ac" onclick="clearDisplay()">AC</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="setOperation('+')">+</button>
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button onclick="setOperation('-')">-</button>
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button onclick="setOperation('/')">/</button>
+        <button onclick="appendNumber('.')">.</button>
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="setOperation('*')">*</button>
+    </div>
 
-  <button onclick="clear()">C</button>
+    <script>
+        let currentInput = "";
+        let currentOperation = null;
+        let previousInput = "";
 
-</div>
+        function appendNumber(number) {
+            currentInput = currentInput + number;
+            updateDisplay();
+        }
 
-<style>
+        function setOperation(operation) {
+            if (currentInput === "") return;
+            if (previousInput !== "") {
+                calculate();
+            }
+            currentOperation = operation;
+            previousInput = currentInput;
+            currentInput = "";
+        }
 
-#calculator {
-  width: 240px;
-  height: 320px;
-  background: gray;
-  border-radius: 10px;
-  padding: 20px;
-  box-sizing: border-box;
-}
+        function clearDisplay() {
+            currentInput = "";
+            currentOperation = null;
+            previousInput = "";
+            updateDisplay();
+        }
 
-input, select, button {
-  width: 60px;
-  height: 30px;
-  margin: 5px;
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
+        function calculate() {
+            let result;
+            const prev = parseFloat(previousInput);
+            const curr = parseFloat(currentInput);
+            if (isNaN(prev) || isNaN(curr)) return;
+            switch (currentOperation) {
+                case '+':
+                    result = prev + curr;
+                    break;
+                case '-':
+                    result = prev - curr;
+                    break;
+                case '*':
+                    result = prev * curr;
+                    break;
+                case '/':
+                    result = prev / curr;
+                    break;
+                default:
+                    return;
+            }
+            currentInput = result.toString();
+            currentOperation = null;
+            previousInput = "";
+            updateDisplay();
+        }
 
-input {
-  text-align: right;
-}
-
-select {
-  appearance: none;
-  -webkit-appearance: none;
-  background: url(downarrow.png) no-repeat right/15px;
-  padding-right: 25px;
-}
-
-button {
-  width: 65px;
-  height: 35px;
-  background: lightgray;
-  color: black;
-  border: 1px solid gray;
-}
-
-#result {
-  height: 40px;
-  background: white;
-  text-align: right;
-  padding-right: 10px;
-  font-size: 24px;
-  border-top: 1px solid gray;
-}
-
-
-#calculator {
-  width: 250px;
-  background: lightgray;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-input, select, button {
-  width: 50px;
-  padding: 5px;
-  margin: 5px;
-}
-
-input {
-  text-align: right;  
-}
-
-select {
-  padding: 7px;
-}
-
-button {
-  width: 60px;  
-}
-
-#result {
-  height: 30px;
-  background: white;
-  text-align: right;
-  padding-right: 5px;
-}
-
-</style>
-
-<script>
-// JavaScript code
-</script>
+        function updateDisplay() {
+            document.getElementById('display').value = currentInput;
+        }
+    </script>
+</body>
+</html>
