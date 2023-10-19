@@ -36,13 +36,11 @@
         }
 
         button.ac {
-            grid-column: 1 / span 4;
-            background-color: #f87171;
-            color: white;
+            grid-column: 4;
         }
 
         input#display {
-            grid-column: 1 / span 4;
+            grid-column: 1 / span 3;
             padding: 10px;
             font-size: 20px;
         }
@@ -54,6 +52,7 @@
         <button class="ac" onclick="clearDisplay()">AC</button>
         <button onclick="appendNumber('9')">9</button>
         <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('7')">7</button>
         <button onclick="setOperation('+')">+</button>
         <button onclick="appendNumber('4')">4</button>
         <button onclick="appendNumber('5')">5</button>
@@ -65,7 +64,7 @@
         <button onclick="setOperation('/')">/</button>
         <button onclick="appendNumber('.')">.</button>
         <button onclick="appendNumber('0')">0</button>
-        <button onclick="calculate()">=</button>
+        <button onclick="compute()">=</button>
         <button onclick="setOperation('*')">*</button>
     </div>
 
@@ -75,18 +74,19 @@
         let previousInput = "";
 
         function appendNumber(number) {
-            currentInput = currentInput + number;
+            currentInput += number;
             updateDisplay();
         }
 
         function setOperation(operation) {
             if (currentInput === "") return;
             if (previousInput !== "") {
-                calculate();
+                compute();
             }
             currentOperation = operation;
             previousInput = currentInput;
             currentInput = "";
+            updateDisplay();
         }
 
         function clearDisplay() {
@@ -96,7 +96,7 @@
             updateDisplay();
         }
 
-        function calculate() {
+        function compute() {
             let result;
             const prev = parseFloat(previousInput);
             const curr = parseFloat(currentInput);
@@ -112,6 +112,11 @@
                     result = prev * curr;
                     break;
                 case '/':
+                    if (curr === 0) {
+                        alert("Cannot divide by zero");
+                        clearDisplay();
+                        return;
+                    }
                     result = prev / curr;
                     break;
                 default:
@@ -124,7 +129,11 @@
         }
 
         function updateDisplay() {
-            document.getElementById('display').value = currentInput;
+            if (currentOperation) {
+                document.getElementById('display').value = `${previousInput} ${currentOperation} ${currentInput}`;
+            } else {
+                document.getElementById('display').value = currentInput;
+            }
         }
     </script>
 </body>
