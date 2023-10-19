@@ -106,10 +106,12 @@
             <div class="form-field">
                 <label for="email">Email</label>
                 <input type="email" id="email" required>
+                <span id="emailError" style="color: red;"></span>
             </div>
             <div class="form-field">
                 <label for="mobileNumber">Mobile Number</label>
-                <input type="tel" id="mobileNumber" required pattern="[0-9]{10}">
+                <input type="tel" id="mobileNumber" required pattern="^\+[0-9]{10,15}$" placeholder="Enter mobile number with country code">
+                <span id="mobileError" style="color: red;"></span>
             </div>
         </div>
 
@@ -128,6 +130,20 @@
             const email = document.getElementById("email").value;
             const mobileNumber = document.getElementById("mobileNumber").value;
 
+            if (!validateEmail(email)) {
+                document.getElementById("emailError").textContent = "Invalid email address!";
+                return;
+            } else {
+                document.getElementById("emailError").textContent = "";
+            }
+
+            if (!validateMobile(mobileNumber)) {
+                document.getElementById("mobileError").textContent = "Invalid mobile number! Ensure country code is present.";
+                return;
+            } else {
+                document.getElementById("mobileError").textContent = "";
+            }
+
             // Construct the message to display in the popup
             let message = `
             First Name: ${firstName}\n
@@ -145,6 +161,16 @@
 
             // Reset the form
             document.getElementById("surveyForm").reset();
+        }
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        function validateMobile(mobile) {
+            var re = /^\+[0-9]{10,15}$/;
+            return re.test(mobile);
         }
     </script>
 </body>
