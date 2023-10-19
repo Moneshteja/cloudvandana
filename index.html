@@ -35,14 +35,29 @@
             background-color: #e5e7eb;
         }
 
-        button.ac {
-            grid-column: 4;
-        }
-
         input#display {
             grid-column: 1 / span 3;
             padding: 10px;
             font-size: 20px;
+        }
+
+        /* Numbers */
+        .calculator button:not(.operator):not(.ac) {
+            background-color: black;
+            color: white;
+        }
+
+        /* Operators */
+        .calculator button.operator {
+            background-color: #2c2c2c; /* blackish gray */
+            color: white;
+        }
+
+        /* AC button */
+        .calculator button.ac {
+            grid-column: 4;
+            background-color: #006400; /* dark green */
+            color: white;
         }
     </style>
 </head>
@@ -53,19 +68,19 @@
         <button onclick="appendNumber('9')">9</button>
         <button onclick="appendNumber('8')">8</button>
         <button onclick="appendNumber('7')">7</button>
-        <button onclick="setOperation('+')">+</button>
+        <button class="operator" onclick="setOperation('+')">+</button>
         <button onclick="appendNumber('4')">4</button>
         <button onclick="appendNumber('5')">5</button>
         <button onclick="appendNumber('6')">6</button>
-        <button onclick="setOperation('-')">-</button>
+        <button class="operator" onclick="setOperation('-')">-</button>
         <button onclick="appendNumber('1')">1</button>
         <button onclick="appendNumber('2')">2</button>
         <button onclick="appendNumber('3')">3</button>
-        <button onclick="setOperation('/')">/</button>
+        <button class="operator" onclick="setOperation('/')">/</button>
         <button onclick="appendNumber('.')">.</button>
         <button onclick="appendNumber('0')">0</button>
         <button onclick="compute()">=</button>
-        <button onclick="setOperation('*')">*</button>
+        <button class="operator" onclick="setOperation('*')">*</button>
     </div>
 
     <script>
