@@ -1,7 +1,18 @@
+import java.util.Scanner;
+
 public class RomanToInteger {
     public static void main(String[] args) {
-        String roman = "IX";
-        System.out.println(romanToInt(roman));
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Enter a Roman number:");
+        String roman = scanner.nextLine();
+
+        try {
+            int result = romanToInt(roman);
+            System.out.println(result);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static int romanToInt(String s) {
@@ -28,7 +39,7 @@ public class RomanToInteger {
             case 'C': return 100;
             case 'D': return 500;
             case 'M': return 1000;
-            default: return 0;
+            default: throw new IllegalArgumentException("Invalid Roman numeral character: " + c);
         }
     }
 }
