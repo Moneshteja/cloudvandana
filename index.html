@@ -20,7 +20,7 @@
             background-color: #ffffff;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1px;  /* Minimal gap to differentiate buttons */
+            gap: 0px;
         }
 
         button {
@@ -29,12 +29,16 @@
             border-radius: 0;
             cursor: pointer;
             font-size: 18px;
+            outline: none; /* To prevent the default focus style */
         }
 
         input#display {
             grid-column: 1 / span 3;
             padding: 10px;
             font-size: 20px;
+            border: none;
+            outline: none;
+            text-align: right;
         }
 
         /* Numbers */
@@ -130,3 +134,4 @@
 </body>
 
 </html>
+
